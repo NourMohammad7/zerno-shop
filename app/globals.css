@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f5efe6;
+  --color-card: #fbf8f3;
+  --color-ink: #1f1a17;
+  --color-muted: #6f655d;
+  --color-line: #e2d8ca;
+  --color-accent: #b4532a;
+  --color-accent-dark: #8f3f1e;
+  --color-leaf: #3f5b45;
+}
+
+@theme inline {
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-playfair);
+}
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-ink px-6 py-3 text-sm font-semibold text-paper transition hover:bg-accent disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-outline {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-ink/25 px-6 py-3 text-sm font-semibold text-ink transition hover:border-ink disabled:pointer-events-none disabled:opacity-50;
+  }
+  .btn-sm {
+    @apply px-4 py-2 text-xs;
+  }
+  .input {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-2.5 text-sm outline-none transition placeholder:text-muted/60 focus:border-ink;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-muted uppercase;
+  }
+  .panel {
+    @apply rounded-2xl border border-line bg-card;
+  }
+}
