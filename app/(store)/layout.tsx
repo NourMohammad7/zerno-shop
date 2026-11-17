@@ -31,6 +31,12 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
               Зерно<span className="text-accent">.</span>
             </div>
             <p className="mt-1">Свежая обжарка, листовой чай и всё для заваривания.</p>
+            <p className="mt-1 text-xs">
+              Фото:{" "}
+              <a href="https://unsplash.com" className="underline underline-offset-2 hover:text-ink" target="_blank" rel="noreferrer">
+                Unsplash
+              </a>
+            </p>
           </div>
           <div className="flex gap-6 font-semibold">
             <Link href="/catalog" className="hover:text-ink">Каталог</Link>

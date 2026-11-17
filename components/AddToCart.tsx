@@ -54,7 +54,7 @@ export function AddToCart({ product, stock, withQty = false, className = "" }: P
       )}
       <button
         type="button"
-        className={`${withQty ? "btn" : "btn btn-sm"} active:scale-95 ${added ? "bg-leaf hover:bg-leaf" : ""}`}
+        className={`${withQty ? "btn" : "btn btn-sm"} whitespace-nowrap active:scale-95 ${added ? "bg-leaf hover:bg-leaf" : ""}`}
         onClick={add}
       >
         <span key={String(added)} className={added ? "pop inline-block" : "inline-block"}>

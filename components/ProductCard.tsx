@@ -37,8 +37,8 @@ export function ProductCard({ product }: { product: Product }) {
           {product.name}
         </Link>
         <p className="mt-1 text-sm text-muted">{product.subtitle}</p>
-        <div className="mt-auto flex items-center justify-between gap-3 pt-4">
-          <div className="flex items-baseline gap-2">
+        <div className="mt-auto flex flex-col items-start gap-3 pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-baseline gap-2 whitespace-nowrap">
             <span className="text-base font-bold tabular-nums">{formatPrice(product.price)}</span>
             {onSale && (
               <span className="text-sm text-muted line-through tabular-nums">

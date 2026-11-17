@@ -1,14 +1,18 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ProductArt } from "@/components/ProductArt";
 import { ProductCard } from "@/components/ProductCard";
 import { createClient } from "@/lib/supabase/server";
 import type { Category, Product } from "@/lib/types";
 
-const CATEGORY_ART: Record<string, { art: string; color: string }> = {
-  coffee: { art: "bag", color: "#b4532a" },
-  tea: { art: "tin", color: "#3f5b45" },
-  brewing: { art: "kettle", color: "#4a5560" },
-  cups: { art: "cup", color: "#c9692f" },
+const CATALOG_PHOTOS = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/products/catalog`;
+
+// Обложки категорий; для новой категории без обложки показывается иллюстрация.
+const CATEGORY_ART: Record<string, { art: string; color: string; image?: string }> = {
+  coffee: { art: "bag", color: "#b4532a", image: `${CATALOG_PHOTOS}/colombia-huila.jpg` },
+  tea: { art: "tin", color: "#3f5b45", image: `${CATALOG_PHOTOS}/sencha.jpg` },
+  brewing: { art: "kettle", color: "#4a5560", image: `${CATALOG_PHOTOS}/v60-dripper.jpg` },
+  cups: { art: "cup", color: "#c9692f", image: `${CATALOG_PHOTOS}/ceramic-cup.jpg` },
 };
 
 const PERKS = [
@@ -33,18 +37,24 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative overflow-hidden">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-          <div className="drift absolute -top-32 -left-24 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
-          <div
-            className="drift absolute top-40 right-0 h-80 w-80 rounded-full bg-leaf/15 blur-3xl"
-            style={{ "--d": "-6s" } as React.CSSProperties}
-          />
-        </div>
+      <section className="relative isolate flex min-h-[calc(100svh-4rem)] items-end overflow-hidden bg-ink text-paper md:items-center">
+        <Image
+          src="/hero-barista.jpg"
+          alt="Бариста наливает молоко в чашку"
+          fill
+          priority
+          sizes="100vw"
+          className="kenburns -z-20 object-cover object-[30%_center]"
+        />
+        {/* Затемнение: снизу на телефоне, справа на компьютере — там, где текст. */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-linear-to-t from-ink via-ink/75 to-ink/10 md:bg-linear-to-l md:from-ink md:via-ink/80 md:to-transparent"
+        />
 
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pt-14 pb-20 md:grid-cols-[1.15fr_1fr] md:pt-20">
-          <div>
-            <p className="fade-up inline-flex items-center gap-2 rounded-full border border-line bg-card/70 px-3 py-1.5 text-xs font-bold tracking-[0.18em] text-accent uppercase backdrop-blur">
+        <div className="mx-auto w-full max-w-6xl px-5 pt-40 pb-14 md:py-24">
+          <div className="md:ml-auto md:max-w-xl">
+            <p className="fade-up inline-flex items-center gap-2 rounded-full border border-paper/20 bg-paper/10 px-3 py-1.5 text-xs font-bold tracking-[0.18em] text-paper uppercase backdrop-blur">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               Свежая обжарка каждую неделю
             </p>
@@ -54,20 +64,25 @@ export default async function HomePage() {
                   {word}
                 </span>
               ))}
-              <span className="fade-up inline-block italic text-accent" style={{ "--d": "390ms" } as React.CSSProperties}>
+              <span className="fade-up inline-block text-[#e8a87c] italic" style={{ "--d": "390ms" } as React.CSSProperties}>
                 с зерна
               </span>
             </h1>
-            <p className="fade-up mt-6 max-w-md text-lg leading-relaxed text-muted" style={{ "--d": "520ms" } as React.CSSProperties}>
+            <p className="fade-up mt-6 max-w-md text-lg leading-relaxed text-paper/80" style={{ "--d": "520ms" } as React.CSSProperties}>
               Обжариваем небольшими партиями, подбираем чай у проверенных хозяйств и продаём
               только то, чем завариваем сами.
             </p>
             <div className="fade-up mt-8 flex flex-wrap gap-3" style={{ "--d": "640ms" } as React.CSSProperties}>
-              <Link href="/catalog" className="btn group/btn">
+              <Link href="/catalog" className="btn group/btn bg-accent hover:bg-paper hover:text-ink">
                 Смотреть каталог
                 <span className="transition-transform group-hover/btn:translate-x-1">→</span>
               </Link>
-              <Link href="/catalog?category=coffee" className="btn-outline">Выбрать кофе</Link>
+              <Link
+                href="/catalog?category=coffee"
+                className="btn-outline border-paper/40 text-paper hover:border-paper hover:bg-paper/10"
+              >
+                Выбрать кофе
+              </Link>
             </div>
             <dl className="fade-up mt-10 flex gap-8 text-sm" style={{ "--d": "760ms" } as React.CSSProperties}>
               {[
@@ -76,38 +91,11 @@ export default async function HomePage() {
                 ["10", "дней максимум от обжарки"],
               ].map(([value, label]) => (
                 <div key={label}>
-                  <dt className="font-display text-3xl font-bold text-ink">{value}</dt>
-                  <dd className="mt-1 max-w-[8rem] text-muted">{label}</dd>
+                  <dt className="font-display text-3xl font-bold">{value}</dt>
+                  <dd className="mt-1 max-w-[8rem] text-paper/70">{label}</dd>
                 </div>
               ))}
             </dl>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {[
-              { art: "bag", color: "#b4532a", name: "Пачка кофе", shift: true, tilt: "-3deg" },
-              { art: "kettle", color: "#4a5560", name: "Чайник", shift: false, tilt: "2deg" },
-              { art: "cup", color: "#c9692f", name: "Чашка", shift: true, tilt: "2deg" },
-              { art: "tin", color: "#3f5b45", name: "Банка чая", shift: false, tilt: "-2deg" },
-            ].map((item, i) => (
-              <div
-                key={item.name}
-                className={`fade-up ${item.shift ? "translate-y-6" : ""}`}
-                style={{ "--d": `${200 + i * 120}ms` } as React.CSSProperties}
-              >
-                <div
-                  className="float"
-                  style={{ "--d": `${i * -1.6}s`, "--tilt": item.tilt } as React.CSSProperties}
-                >
-                  <ProductArt
-                    art={item.art}
-                    color={item.color}
-                    name={item.name}
-                    className="shadow-xl shadow-ink/10"
-                  />
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -144,7 +132,13 @@ export default async function HomePage() {
                 href={`/catalog?category=${category.slug}`}
                 className="reveal panel group flex items-center gap-3 p-3 transition duration-300 hover:-translate-y-1 hover:border-ink hover:shadow-lg hover:shadow-ink/10"
               >
-                <ProductArt art={look.art} color={look.color} name={category.name} className="w-16 shrink-0 rounded-xl" />
+                <ProductArt
+                  art={look.art}
+                  color={look.color}
+                  imageUrl={look.image}
+                  name={category.name}
+                  className="w-16 shrink-0 rounded-xl"
+                />
                 <span className="font-semibold group-hover:text-accent">{category.name}</span>
               </Link>
             );
