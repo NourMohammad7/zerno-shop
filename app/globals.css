@@ -118,6 +118,37 @@ html.tr-ready
   opacity: 0;
 }
 
+/* Блик, который постоянно пробегает по заголовкам разделов. */
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.shimmer,
+[data-animate-text] h2 {
+  background-image: linear-gradient(
+    100deg,
+    currentColor 0%,
+    currentColor 40%,
+    var(--shine, #e8a87c) 50%,
+    currentColor 60%,
+    currentColor 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+[data-animate-text] h2 {
+  --shine: var(--color-accent);
+}
+
 /* Шапка: логотип и меню спускаются при загрузке. */
 .fade-down {
   animation: fade-down 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;

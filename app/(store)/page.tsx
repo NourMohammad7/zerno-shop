@@ -66,7 +66,9 @@ export default async function HomePage() {
                 </span>
               ))}
               <span className="fade-up inline-block text-[#e8a87c] italic" style={{ "--d": "390ms" } as React.CSSProperties}>
-                с зерна
+                <span className="shimmer pr-[0.1em]" style={{ "--shine": "#fff4e6" } as React.CSSProperties}>
+                  с зерна
+                </span>
               </span>
             </h1>
             <p className="fade-up mt-6 max-w-md text-lg leading-relaxed text-paper/80" style={{ "--d": "520ms" } as React.CSSProperties}>

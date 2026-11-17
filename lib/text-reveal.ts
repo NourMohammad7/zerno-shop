@@ -16,20 +16,25 @@ function textReveal() {
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const show = (el: Element, i: number) => {
-    el.animate(
-      reduce
-        ? [{ opacity: 1 }, { opacity: 1 }]
+    const heading = /^H[12]$/.test(el.tagName);
+    const frames: Keyframe[] = reduce
+      ? [{ opacity: 1 }, { opacity: 1 }]
+      : heading
+        ? // Крупные заголовки «прописываются» слева направо и чуть поднимаются.
+          [
+            { opacity: 1, clipPath: "inset(-20% 100% -20% 0)", transform: "translateY(18px)" },
+            { opacity: 1, clipPath: "inset(-20% 0 -20% 0)", transform: "none" },
+          ]
         : [
-            { opacity: 0, transform: "translateY(16px)", filter: "blur(5px)" },
+            { opacity: 0, transform: "translateY(28px) scale(0.98)", filter: "blur(8px)" },
             { opacity: 1, transform: "none", filter: "none" },
-          ],
-      {
-        duration: reduce ? 1 : 750,
-        delay: reduce ? 0 : Math.min(i * 70, 560),
-        easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
-        fill: "both",
-      },
-    );
+          ];
+    el.animate(frames, {
+      duration: reduce ? 1 : heading ? 1100 : 900,
+      delay: reduce ? 0 : 150 + Math.min(i * 110, 880),
+      easing: "cubic-bezier(0.2, 0.7, 0.2, 1)",
+      fill: "both",
+    });
   };
 
   const start = () => {
