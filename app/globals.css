@@ -95,6 +95,47 @@ body {
   }
 }
 
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Текст магазина прячется до появления на экране; проявляет его скрипт из
+   lib/text-reveal.ts. Список тегов должен совпадать с TEXT в скрипте. */
+html.tr-ready
+  [data-animate-text]
+  :is(h1, h2, h3, p, dt, dd, label, .font-display, .tabular-nums):not(
+    [data-static-text] *,
+    .fade-up,
+    .fade-up *
+  ) {
+  opacity: 0;
+}
+
+/* Шапка: логотип и меню спускаются при загрузке. */
+.fade-down {
+  animation: fade-down 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Подчёркивание пунктов меню вырастает при наведении. */
+.nav-link {
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1.5px no-repeat;
+  padding-bottom: 2px;
+  transition:
+    background-size 0.3s ease,
+    color 0.2s ease;
+}
+.nav-link:hover {
+  background-size: 100% 1.5px;
+}
+
 /* Медленное «приближение камеры» на фото первого экрана. */
 .kenburns {
   animation: kenburns 16s ease-out both;

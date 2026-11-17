@@ -38,7 +38,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section className="relative isolate flex min-h-[calc(100svh-4rem)] items-end overflow-hidden bg-ink text-paper md:items-center">
+      <section data-static-text className="relative isolate flex min-h-[calc(100svh-4rem)] items-end overflow-hidden bg-ink text-paper md:items-center">
         <Image
           src="/hero-barista.jpg"
           alt="Бариста наливает молоко в чашку"
@@ -101,7 +101,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div className="overflow-hidden border-y border-ink bg-ink py-3.5 text-paper" aria-hidden>
+      <div data-static-text className="overflow-hidden border-y border-ink bg-ink py-3.5 text-paper" aria-hidden>
         <div className="marquee flex w-max">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0 items-center">
