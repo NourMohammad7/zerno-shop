@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
-import { TEXT_REVEAL_SCRIPT } from "@/lib/text-reveal";
+import { TEXT_FLOAT_SCRIPT } from "@/lib/text-float";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -24,14 +24,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="ru"
-      className={`${manrope.variable} ${playfair.variable} h-full antialiased`}
-      suppressHydrationWarning
-    >
+    <html lang="ru" className={`${manrope.variable} ${playfair.variable} h-full antialiased`}>
       <head>
-        {/* Анимация текста магазина: запускается до React, чтобы текст не ждал загрузки JS. */}
-        <script dangerouslySetInnerHTML={{ __html: TEXT_REVEAL_SCRIPT }} />
+        {/* Плавающие надписи магазина: запускаются до React, не дожидаясь загрузки JS. */}
+        <script dangerouslySetInnerHTML={{ __html: TEXT_FLOAT_SCRIPT }} />
       </head>
       <body className="flex min-h-full flex-col font-sans">{children}</body>
     </html>

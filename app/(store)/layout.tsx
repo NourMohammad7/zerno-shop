@@ -8,14 +8,12 @@ const NAV = [
   { href: "/catalog?category=brewing", label: "Заваривание" },
 ];
 
-const delay = (ms: number) => ({ "--d": `${ms}ms` }) as React.CSSProperties;
-
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur" data-animate-text>
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5">
-          <Link href="/" className="fade-down font-display text-2xl font-bold tracking-tight">
+          <Link href="/" className="font-display text-2xl font-bold tracking-tight">
             Зерно<span className="text-accent">.</span>
           </Link>
           <nav className="hidden items-center gap-7 text-sm font-semibold sm:flex">
@@ -23,14 +21,14 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
               <Link
                 key={item.href}
                 href={item.href}
-                className="fade-down nav-link hover:text-accent"
-                style={delay(80 + i * 70)}
+                className="wave-word nav-link hover:text-accent"
+                style={{ "--i": i } as React.CSSProperties}
               >
                 {item.label}
               </Link>
             ))}
           </nav>
-          <div className="fade-down flex items-center gap-4" style={delay(380)}>
+          <div className="flex items-center gap-4">
             <Link href="/catalog" className="nav-link text-sm font-semibold sm:hidden">Каталог</Link>
             <CartLink />
           </div>

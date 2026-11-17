@@ -38,7 +38,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <section data-static-text className="relative isolate flex min-h-[calc(100svh-4rem)] items-end overflow-hidden bg-ink text-paper md:items-center">
+      <section className="relative isolate flex min-h-[calc(100svh-4rem)] items-end overflow-hidden bg-ink text-paper md:items-center">
         <Image
           src="/hero-barista.jpg"
           alt="Бариста наливает молоко в чашку"
@@ -55,27 +55,28 @@ export default async function HomePage() {
 
         <div className="mx-auto w-full max-w-6xl px-5 pt-40 pb-14 md:py-24">
           <div className="md:ml-auto md:max-w-xl">
-            <p className="fade-up inline-flex items-center gap-2 rounded-full border border-paper/20 bg-paper/10 px-3 py-1.5 text-xs font-bold tracking-[0.18em] text-paper uppercase backdrop-blur">
+            <p className="inline-flex items-center gap-2 rounded-full border border-paper/20 bg-paper/10 px-3 py-1.5 text-xs font-bold tracking-[0.18em] text-paper uppercase backdrop-blur">
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               Свежая обжарка каждую неделю
             </p>
-            <h1 className="mt-6 font-display text-5xl leading-[1.04] font-bold tracking-tight md:text-7xl">
+            {/* Слова заголовка плывут волной; плавающий скрипт его не трогает. */}
+            <h1 data-static-text className="mt-6 font-display text-5xl leading-[1.04] font-bold tracking-tight md:text-7xl">
               {["Хорошая", "чашка", "начинается"].map((word, i) => (
-                <span key={word} className="fade-up mr-[0.25em] inline-block" style={{ "--d": `${120 + i * 90}ms` } as React.CSSProperties}>
+                <span key={word} className="wave-word mr-[0.25em]" style={{ "--i": i } as React.CSSProperties}>
                   {word}
                 </span>
               ))}
-              <span className="fade-up inline-block text-[#e8a87c] italic" style={{ "--d": "390ms" } as React.CSSProperties}>
+              <span className="wave-word text-[#e8a87c] italic" style={{ "--i": 3 } as React.CSSProperties}>
                 <span className="shimmer pr-[0.1em]" style={{ "--shine": "#fff4e6" } as React.CSSProperties}>
                   с зерна
                 </span>
               </span>
             </h1>
-            <p className="fade-up mt-6 max-w-md text-lg leading-relaxed text-paper/80" style={{ "--d": "520ms" } as React.CSSProperties}>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-paper/80">
               Обжариваем небольшими партиями, подбираем чай у проверенных хозяйств и продаём
               только то, чем завариваем сами.
             </p>
-            <div className="fade-up mt-8 flex flex-wrap gap-3" style={{ "--d": "640ms" } as React.CSSProperties}>
+            <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/catalog" className="btn group/btn bg-accent hover:bg-paper hover:text-ink">
                 Смотреть каталог
                 <span className="transition-transform group-hover/btn:translate-x-1">→</span>
@@ -87,7 +88,7 @@ export default async function HomePage() {
                 Выбрать кофе
               </Link>
             </div>
-            <dl className="fade-up mt-10 flex gap-8 text-sm" style={{ "--d": "760ms" } as React.CSSProperties}>
+            <dl className="mt-10 flex gap-8 text-sm">
               {[
                 [String(productCount ?? 0), "товаров в каталоге"],
                 ["1–3", "дня доставка"],

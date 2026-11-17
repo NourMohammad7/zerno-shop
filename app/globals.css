@@ -95,27 +95,26 @@ body {
   }
 }
 
-@keyframes fade-down {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
+/* Слова заголовка первого экрана плывут волной, друг за другом (--i — номер слова). */
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
   }
-  to {
-    opacity: 1;
-    transform: none;
+  50% {
+    transform: translateY(calc(var(--amp, 10px) * -1));
   }
 }
 
-/* Текст магазина прячется до появления на экране; проявляет его скрипт из
-   lib/text-reveal.ts. Список тегов должен совпадать с TEXT в скрипте. */
-html.tr-ready
-  [data-animate-text]
-  :is(h1, h2, h3, p, dt, dd, label, .font-display, .tabular-nums):not(
-    [data-static-text] *,
-    .fade-up,
-    .fade-up *
-  ) {
-  opacity: 0;
+/* Пункты меню мелкие — качаются слабее. */
+nav .wave-word {
+  --amp: 3px;
+}
+
+.wave-word {
+  display: inline-block;
+  animation: bob 3.6s ease-in-out infinite;
+  animation-delay: calc(var(--i, 0) * -0.45s);
 }
 
 /* Блик, который постоянно пробегает по заголовкам разделов. */
@@ -147,12 +146,6 @@ html.tr-ready
 
 [data-animate-text] h2 {
   --shine: var(--color-accent);
-}
-
-/* Шапка: логотип и меню спускаются при загрузке. */
-.fade-down {
-  animation: fade-down 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: var(--d, 0ms);
 }
 
 /* Подчёркивание пунктов меню вырастает при наведении. */
