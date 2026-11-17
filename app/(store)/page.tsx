@@ -5,7 +5,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { createClient } from "@/lib/supabase/server";
 import type { Category, Product } from "@/lib/types";
 
-const CATALOG_PHOTOS = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/products/catalog`;
+// trim() срезает и невидимый BOM, если он попадёт в переменную окружения.
+const CATALOG_PHOTOS = `${process.env.NEXT_PUBLIC_SUPABASE_URL?.trim()}/storage/v1/object/public/products/catalog`;
 
 // Обложки категорий; для новой категории без обложки показывается иллюстрация.
 const CATEGORY_ART: Record<string, { art: string; color: string; image?: string }> = {
