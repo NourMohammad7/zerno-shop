@@ -52,8 +52,14 @@ export function AddToCart({ product, stock, withQty = false, className = "" }: P
           </button>
         </div>
       )}
-      <button type="button" className={withQty ? "btn" : "btn btn-sm"} onClick={add}>
-        {added ? "Добавлено ✓" : "В корзину"}
+      <button
+        type="button"
+        className={`${withQty ? "btn" : "btn btn-sm"} active:scale-95 ${added ? "bg-leaf hover:bg-leaf" : ""}`}
+        onClick={add}
+      >
+        <span key={String(added)} className={added ? "pop inline-block" : "inline-block"}>
+          {added ? "Добавлено ✓" : "В корзину"}
+        </span>
       </button>
       {withQty && added && (
         <Link href="/cart" className="text-sm font-semibold text-accent underline underline-offset-4">

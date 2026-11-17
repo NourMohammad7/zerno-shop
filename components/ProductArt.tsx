@@ -48,7 +48,8 @@ function Shape({ kind, color }: { kind: string; color: string }) {
           <path d="M56 86h78v34a36 36 0 0 1-36 36h-6a36 36 0 0 1-36-36z" fill={color} />
           <path d="M134 96c22-4 26 30-4 32" fill="none" stroke={color} strokeWidth="9" strokeLinecap="round" />
           <rect x="46" y="160" width="100" height="8" rx="4" fill={INK} />
-          <path d="M80 70c-8-10 8-14 0-26M104 70c-8-10 8-14 0-26" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" opacity=".5" />
+          <path className="steam" d="M80 70c-8-10 8-14 0-26" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" opacity=".5" />
+          <path className="steam" style={{ "--d": "1.3s" } as React.CSSProperties} d="M104 70c-8-10 8-14 0-26" fill="none" stroke={INK} strokeWidth="4" strokeLinecap="round" opacity=".5" />
         </>
       );
     default:
@@ -81,9 +82,18 @@ export function ProductArt({ art, color, imageUrl, name, className = "" }: Props
     >
       {imageUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={imageUrl} alt={name} className="h-full w-full object-cover" />
+        <img
+          src={imageUrl}
+          alt={name}
+          className="h-full w-full object-cover transition duration-700 ease-out group-hover:scale-105"
+        />
       ) : (
-        <svg viewBox="0 0 200 200" role="img" aria-label={name} className="h-full w-full">
+        <svg
+          viewBox="0 0 200 200"
+          role="img"
+          aria-label={name}
+          className="h-full w-full transition duration-700 ease-out group-hover:scale-110 group-hover:-rotate-3"
+        >
           <Shape kind={art} color={color} />
         </svg>
       )}

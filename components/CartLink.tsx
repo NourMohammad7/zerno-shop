@@ -13,7 +13,10 @@ export function CartLink() {
     >
       Корзина
       {count > 0 && (
-        <span className="grid h-5 min-w-5 place-items-center rounded-full bg-paper px-1 text-xs text-ink tabular-nums">
+        <span
+          key={count}
+          className="pop grid h-5 min-w-5 place-items-center rounded-full bg-paper px-1 text-xs text-ink tabular-nums"
+        >
           {count}
         </span>
       )}
