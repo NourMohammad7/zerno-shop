@@ -9,7 +9,7 @@ export function ProductCard({ product }: { product: Product }) {
   const onSale = product.old_price && product.old_price > product.price;
 
   return (
-    <article className="reveal group flex flex-col">
+    <article className="group flex flex-col">
       <Link href={href} className="relative block">
         <ProductArt
           art={product.art}

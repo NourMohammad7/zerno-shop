@@ -134,7 +134,7 @@ export default async function HomePage() {
               <Link
                 key={category.id}
                 href={`/catalog?category=${category.slug}`}
-                className="reveal panel group flex items-center gap-3 p-3 transition duration-300 hover:-translate-y-1 hover:border-ink hover:shadow-lg hover:shadow-ink/10"
+                className="panel group flex items-center gap-3 p-3 transition duration-300 hover:-translate-y-1 hover:border-ink hover:shadow-lg hover:shadow-ink/10"
               >
                 <ProductArt
                   art={look.art}
@@ -151,7 +151,7 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-5 py-12">
-        <div className="reveal flex items-end justify-between gap-4">
+        <div className="flex items-end justify-between gap-4">
           <h2 className="font-display text-3xl font-bold md:text-4xl">Выбор недели</h2>
           <Link href="/catalog" className="text-sm font-semibold text-accent underline underline-offset-4">
             Весь каталог
@@ -169,7 +169,7 @@ export default async function HomePage() {
           {PERKS.map((perk) => (
             <div
               key={perk.title}
-              className="reveal panel p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/50"
+              className="panel p-6 transition duration-300 hover:-translate-y-1 hover:border-accent/50"
             >
               <h3 className="font-display text-xl font-semibold">{perk.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">{perk.text}</p>

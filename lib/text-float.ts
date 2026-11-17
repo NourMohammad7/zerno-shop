@@ -1,21 +1,37 @@
-// Встроенный скрипт «плавающих надписей»: каждая надпись магазина медленно
-// покачивается вверх-вниз в своём ритме, чтобы текст не двигался строем.
+// Встроенный скрипт «плавающего магазина»: надписи, карточки, фото, кнопки и
+// поля медленно покачиваются вверх-вниз, каждый элемент в своём ритме, чтобы
+// ничего не двигалось строем. Действует только внутри [data-animate-text] —
+// это витрина; в админ-панели такой разметки нет, там всё неподвижно.
+//
 // Работает сразу после загрузки HTML, не дожидаясь React, и не меняет атрибуты
 // элементов (Web Animations API), поэтому не конфликтует с гидратацией.
-// Анимации идут только у надписей на экране — остальные стоят на паузе.
+// Анимации идут только у элементов на экране — остальные стоят на паузе.
 
-function textFloat() {
+function shopFloat() {
   if (!("IntersectionObserver" in window) || !Element.prototype.animate) return;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-  const TEXT = "h1, h2, h3, p, dt, dd, label, .font-display, .tabular-nums";
+  const FLOATING = [
+    // Надписи.
+    "h1, h2, h3, p, dt, dd, label, .font-display, .tabular-nums",
+    // Карточки, плитки, позиции корзины.
+    "article, .panel, li",
+    // Фото и иллюстрации вне карточек (например, на странице товара).
+    ".aspect-square",
+    // Кнопки, ссылки-«таблетки», поля ввода.
+    ".btn, .btn-outline, button, a.rounded-full, input, select, textarea",
+  ].join(", ");
   const SKIP = "[data-static-text]";
 
-  // Крупный текст качается заметнее, мелкий — едва-едва, чтобы читался.
-  const amplitude = (el: Element) => {
-    if (/^H[12]$/.test(el.tagName)) return 7;
-    if (el.tagName === "H3" || el.tagName === "DT" || el.classList.contains("font-display")) return 5;
-    return 3;
+  // [амплитуда в px, минимальный период в мс]: крупное плывёт шире и медленнее.
+  const motion = (el: Element): [number, number] => {
+    const tag = el.tagName;
+    if (tag === "ARTICLE" || el.classList.contains("panel") || tag === "LI") return [6, 5200];
+    if (el.classList.contains("aspect-square")) return [8, 6000];
+    if (/^H[12]$/.test(tag)) return [7, 3600];
+    if (tag === "H3" || tag === "DT" || el.classList.contains("font-display")) return [5, 3400];
+    if (/^(BUTTON|A|INPUT|SELECT|TEXTAREA)$/.test(tag)) return [3, 3000];
+    return [3, 3200];
   };
 
   const start = () => {
@@ -31,10 +47,10 @@ function textFloat() {
 
     const scan = () => {
       document.querySelectorAll("[data-animate-text]").forEach((area) => {
-        area.querySelectorAll(TEXT).forEach((el) => {
+        area.querySelectorAll(FLOATING).forEach((el) => {
           if (anims.has(el) || el.closest(SKIP)) return;
-          const amp = amplitude(el);
-          const duration = 3200 + Math.random() * 2400;
+          const [amp, minPeriod] = motion(el);
+          const duration = minPeriod + Math.random() * 2400;
           const anim = el.animate(
             [
               { transform: "translateY(0)" },
@@ -51,7 +67,7 @@ function textFloat() {
     };
 
     scan();
-    // Новые надписи появляются при переходах между страницами и в корзине.
+    // Новые элементы появляются при переходах между страницами и в корзине.
     new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
   };
 
@@ -59,4 +75,4 @@ function textFloat() {
   else start();
 }
 
-export const TEXT_FLOAT_SCRIPT = `(${textFloat.toString()})();`;
+export const TEXT_FLOAT_SCRIPT = `(${shopFloat.toString()})();`;

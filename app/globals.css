@@ -88,10 +88,10 @@ body {
 
 @keyframes kenburns {
   from {
-    transform: scale(1.12);
+    transform: scale(1.04) translate(0, 0);
   }
   to {
-    transform: scale(1);
+    transform: scale(1.12) translate(-1.5%, -1%);
   }
 }
 
@@ -160,9 +160,9 @@ nav .wave-word {
   background-size: 100% 1.5px;
 }
 
-/* Медленное «приближение камеры» на фото первого экрана. */
+/* Фото первого экрана медленно «дышит»: приближается и отдаляется без конца. */
 .kenburns {
-  animation: kenburns 16s ease-out both;
+  animation: kenburns 18s ease-in-out infinite alternate;
 }
 
 /* Появление при загрузке; задержка через --d. */
@@ -196,15 +196,6 @@ nav .wave-word {
   animation-delay: var(--d, 0ms);
 }
 
-/* Появление при прокрутке — там, где браузер это умеет; иначе блок просто виден. */
-@supports (animation-timeline: view()) {
-  .reveal {
-    animation: fade-up linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 55%;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -212,10 +203,6 @@ nav .wave-word {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-  /* Привязанные к прокрутке анимации не подчиняются длительности — выключаем явно. */
-  .reveal {
-    animation: none !important;
   }
 }
 
