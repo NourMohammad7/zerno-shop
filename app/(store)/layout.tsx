@@ -53,11 +53,22 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
               </a>
             </p>
           </div>
-          <div className="flex gap-6 font-semibold">
-            <Link href="/catalog" className="nav-link hover:text-ink">Каталог</Link>
-            <Link href="/cart" className="nav-link hover:text-ink">Корзина</Link>
-            <Link href="/admin" className="nav-link hover:text-ink">Админ-панель</Link>
-          </div>
+          <nav className="flex gap-6 font-semibold">
+            {[
+              { href: "/catalog", label: "Каталог" },
+              { href: "/cart", label: "Корзина" },
+              { href: "/admin", label: "Админ-панель" },
+            ].map((item, i) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="wave-word nav-link hover:text-ink"
+                style={{ "--i": i } as React.CSSProperties}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </footer>
     </>
