@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope, Playfair_Display } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { TEXT_FLOAT_SCRIPT } from "@/lib/text-float";
 import "./globals.css";
 
@@ -29,7 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Плавающие надписи магазина: запускаются до React, не дожидаясь загрузки JS. */}
         <script dangerouslySetInnerHTML={{ __html: TEXT_FLOAT_SCRIPT }} />
       </head>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
