@@ -11,19 +11,14 @@ const NAV = [
 export default function StoreLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur" data-animate-text>
+      <header className="sticky top-0 z-20 border-b border-line bg-paper/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-6 px-5">
           <Link href="/" className="font-display text-2xl font-bold tracking-tight">
             Зерно<span className="text-accent">.</span>
           </Link>
           <nav className="hidden items-center gap-7 text-sm font-semibold sm:flex">
-            {NAV.map((item, i) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="wave-word nav-link hover:text-accent"
-                style={{ "--i": i } as React.CSSProperties}
-              >
+            {NAV.map((item) => (
+              <Link key={item.href} href={item.href} className="nav-link hover:text-accent">
                 {item.label}
               </Link>
             ))}
@@ -35,11 +30,12 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
         </div>
       </header>
 
-      <main className="flex-1" data-animate-text>
+      {/* data-storefront — по нему CSS даёт заголовкам разделов блик (только на витрине). */}
+      <main className="flex-1" data-storefront>
         {children}
       </main>
 
-      <footer className="mt-24 border-t border-line" data-animate-text>
+      <footer className="mt-24 border-t border-line">
         <div className="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
           <div>
             <div className="font-display text-xl font-bold text-ink">
@@ -58,13 +54,8 @@ export default function StoreLayout({ children }: { children: React.ReactNode })
               { href: "/catalog", label: "Каталог" },
               { href: "/cart", label: "Корзина" },
               { href: "/admin", label: "Админ-панель" },
-            ].map((item, i) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="wave-word nav-link hover:text-ink"
-                style={{ "--i": i } as React.CSSProperties}
-              >
+            ].map((item) => (
+              <Link key={item.href} href={item.href} className="nav-link hover:text-ink">
                 {item.label}
               </Link>
             ))}

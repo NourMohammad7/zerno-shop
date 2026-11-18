@@ -23,37 +23,6 @@ body {
 
 /* Анимации ---------------------------------------------------------------- */
 
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translateY(0) rotate(var(--tilt, 0deg));
-  }
-  50% {
-    transform: translateY(-14px) rotate(calc(var(--tilt, 0deg) * -1));
-  }
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  50% {
-    transform: translate(40px, -30px) scale(1.12);
-  }
-}
-
 @keyframes marquee {
   to {
     transform: translateX(-50%);
@@ -95,28 +64,6 @@ body {
   }
 }
 
-/* Слова заголовка первого экрана плывут волной, друг за другом (--i — номер слова). */
-@keyframes bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(calc(var(--amp, 10px) * -1));
-  }
-}
-
-/* Пункты меню мелкие — качаются слабее. */
-nav .wave-word {
-  --amp: 3px;
-}
-
-.wave-word {
-  display: inline-block;
-  animation: bob 3.6s ease-in-out infinite;
-  animation-delay: calc(var(--i, 0) * -0.45s);
-}
-
 /* Блик, который постоянно пробегает по заголовкам разделов. */
 @keyframes shimmer {
   from {
@@ -128,7 +75,7 @@ nav .wave-word {
 }
 
 .shimmer,
-[data-animate-text] h2 {
+[data-storefront] h2 {
   background-image: linear-gradient(
     100deg,
     currentColor 0%,
@@ -144,7 +91,7 @@ nav .wave-word {
   animation: shimmer 5s linear infinite;
 }
 
-[data-animate-text] h2 {
+[data-storefront] h2 {
   --shine: var(--color-accent);
 }
 
@@ -163,22 +110,6 @@ nav .wave-word {
 /* Фото первого экрана медленно «дышит»: приближается и отдаляется без конца. */
 .kenburns {
   animation: kenburns 18s ease-in-out infinite alternate;
-}
-
-/* Появление при загрузке; задержка через --d. */
-.fade-up {
-  animation: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-  animation-delay: var(--d, 0ms);
-}
-
-.float {
-  animation: float 7s ease-in-out infinite;
-  animation-delay: var(--d, 0ms);
-}
-
-.drift {
-  animation: drift 18s ease-in-out infinite;
-  animation-delay: var(--d, 0ms);
 }
 
 .marquee {

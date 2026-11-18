@@ -59,14 +59,9 @@ export default async function HomePage() {
               <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
               Свежая обжарка каждую неделю
             </p>
-            {/* Слова заголовка плывут волной; плавающий скрипт его не трогает. */}
-            <h1 data-static-text className="mt-6 font-display text-5xl leading-[1.04] font-bold tracking-tight md:text-7xl">
-              {["Хорошая", "чашка", "начинается"].map((word, i) => (
-                <span key={word} className="wave-word mr-[0.25em]" style={{ "--i": i } as React.CSSProperties}>
-                  {word}
-                </span>
-              ))}
-              <span className="wave-word text-[#e8a87c] italic" style={{ "--i": 3 } as React.CSSProperties}>
+            <h1 className="mt-6 font-display text-5xl leading-[1.04] font-bold tracking-tight md:text-7xl">
+              Хорошая чашка начинается{" "}
+              <span className="text-[#e8a87c] italic">
                 <span className="shimmer pr-[0.1em]" style={{ "--shine": "#fff4e6" } as React.CSSProperties}>
                   с зерна
                 </span>
@@ -104,7 +99,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <div data-static-text className="overflow-hidden border-y border-ink bg-ink py-3.5 text-paper" aria-hidden>
+      <div className="overflow-hidden border-y border-ink bg-ink py-3.5 text-paper" aria-hidden>
         <div className="marquee flex w-max">
           {[0, 1].map((copy) => (
             <div key={copy} className="flex shrink-0 items-center">
